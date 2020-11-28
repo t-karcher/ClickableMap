@@ -4,14 +4,13 @@ class_name MapRegion
 signal region_selected
 
 var shape : PoolVector2Array setget set_shape
-var base_color : Color = Color(randf(), randf(), randf(), 0.6)
 
 onready var _poly : Polygon2D = $Polygon2D
 onready var _coll : CollisionPolygon2D = $CollisionPolygon2D
 
 func set_shape(new_shape: PoolVector2Array):
 	_poly.set_polygon(new_shape)
-	_poly.color = base_color
+	_poly.color = Color(randf(), randf(), randf(), 0.6)
 	_coll.set_polygon(new_shape)
 	shape = new_shape
 
