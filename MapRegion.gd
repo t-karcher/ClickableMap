@@ -5,8 +5,8 @@ signal region_selected
 
 var shape : PoolVector2Array setget set_shape
 
-onready var _poly : Polygon2D = $Polygon2D
-onready var _coll : CollisionPolygon2D = $CollisionPolygon2D
+onready var _poly := $Polygon2D
+onready var _coll := $CollisionPolygon2D
 
 func set_shape(new_shape: PoolVector2Array):
 	_poly.set_polygon(new_shape)

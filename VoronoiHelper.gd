@@ -60,8 +60,8 @@ func triangle_center(points, delaunay, t, center = "circumcenter"):
 		"centroid": return centroid(vertices[0], vertices[1], vertices[2])
 		"incenter": return incenter(vertices[0], vertices[1], vertices[2])
 
-func get_voronoi_cells(points, delaunay):
-	var result = []
+func get_voronoi_cells(points, delaunay) -> Array :
+	var result : Array = []
 	var seen = []
 	for e in delaunay.triangles.size():
 		var triangles = []

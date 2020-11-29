@@ -5,7 +5,7 @@ const EDGE_STACK = []
 
 var coords : PoolRealArray = []
 var halfedges : PoolIntArray = []
-var hull : PoolIntArray = []
+var hull = [] # This array should be a PoolIntArray but we need to use the .slice() function on it.
 var triangles : PoolIntArray = []
 var triangles_len = 0
 var _cx
@@ -141,7 +141,7 @@ func update():
 			_dists[i] = _dist_temp
 
 		quicksort(_ids, _dists, 0, n - 1)
-		var hull = []
+		hull = []
 		hull.resize(n)
 		var j = 0
 		var d0 = -INF
