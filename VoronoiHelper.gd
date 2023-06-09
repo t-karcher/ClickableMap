@@ -76,7 +76,7 @@ func get_voronoi_cells(points, delaunay) -> Array :
 				vertices.append(triangle_center(points, delaunay, t))
 
 		if triangles.size() > 2:
-			var voronoi_cell = PoolVector2Array()
+			var voronoi_cell = PackedVector2Array()
 			for vertice in vertices:
 				voronoi_cell.append(Vector2(vertice[0], vertice[1]))
 			result.append(voronoi_cell)

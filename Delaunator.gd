@@ -1,25 +1,25 @@
 class_name Delaunator
 
 const EPSILON = pow(2, -52)
-const EDGE_STACK = []
 
-var coords : PoolRealArray = []
-var halfedges : PoolIntArray = []
-var hull = [] # This array should be a PoolIntArray but we need to use the .slice() function on it.
-var triangles : PoolIntArray = []
+var coords : PackedFloat32Array = []
+var edge_stack = []
+var halfedges : PackedInt32Array = []
+var hull = [] # This array should be a PackedInt32Array but we need to use the super.slice() function on it.
+var triangles : PackedInt32Array = []
 var triangles_len = 0
 var _cx
 var _cy
-var _dists : PoolRealArray = []
-var _halfedges = [] # This array should be a PoolIntArray but we need to use the .slice() function on it.
+var _dists : PackedFloat32Array = []
+var _halfedges = [] # This array should be a PackedInt32Array but we need to use the super.slice() function on it.
 var _hash_size
-var _hull_hash : PoolIntArray = [] 
-var _hull_next : PoolIntArray = [] 
-var _hull_prev : PoolIntArray = []
+var _hull_hash : PackedInt32Array = [] 
+var _hull_next : PackedInt32Array = [] 
+var _hull_prev : PackedInt32Array = []
 var _hull_start
-var _hull_tri : PoolIntArray = []
-var _ids = [] # PoolIntArray, but doesn't work with static typing
-var _triangles = []  # This array should be a PoolIntArray but we need to use the .slice() function on it.
+var _hull_tri : PackedInt32Array = []
+var _ids = [] # PackedInt32Array, but doesn't work with static typing
+var _triangles = []  # This array should be a PackedInt32Array but we need to use the super.slice() function on it.
 
 
 func _init(points):
@@ -27,7 +27,7 @@ func _init(points):
 		push_error(ProjectSettings.get_setting("application/config/name") + " needs at least 3 points.")
 		return
 
-	EDGE_STACK.resize(512)
+	edge_stack.resize(512)
 
 	var n = points.size()
 
@@ -152,7 +152,7 @@ func update():
 				hull[j] = id
 				j += 1
 				d0 = _dists[id]
-		hull = hull.slice(0, j - 1)
+		hull = hull.slice(0, j)
 		triangles = []
 		halfedges = []
 
@@ -292,8 +292,8 @@ func update():
 		e = _hull_next[e]
 
 	# Trim typed triangle mesh arrays.
-	triangles = _triangles.slice(0, triangles_len - 1)
-	halfedges = _halfedges.slice(0, triangles_len - 1)
+	triangles = _triangles.slice(0, triangles_len)
+	halfedges = _halfedges.slice(0, triangles_len)
 
 
 func _hash_key(x, y):
@@ -329,7 +329,7 @@ func _legalize(a):
 		if b == -1: # Convex hull edge.
 			if i == 0: break
 			i -= 1
-			a = EDGE_STACK[i]
+			a = edge_stack[i]
 			continue
 
 		var b0 = b - b % 3
@@ -372,13 +372,13 @@ func _legalize(a):
 			var br = b0 + (b + 1) % 3
 
 			# Don't worry about hitting the cap: it can only happen on extremely degenerate input.
-			if i < EDGE_STACK.size():
-				EDGE_STACK[i] = br
+			if i < edge_stack.size():
+				edge_stack[i] = br
 				i += 1
 		else:
 			if i == 0: break
 			i -= 1
-			a = EDGE_STACK[i]
+			a = edge_stack[i]
 
 	return ar
 

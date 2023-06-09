@@ -6,28 +6,13 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
-
-_global_script_classes=[ {
-"base": "Reference",
-"class": "Delaunator",
-"language": "GDScript",
-"path": "res://Delaunator.gd"
-}, {
-"base": "Area2D",
-"class": "MapRegion",
-"language": "GDScript",
-"path": "res://MapRegion.gd"
-} ]
-_global_script_class_icons={
-"Delaunator": "",
-"MapRegion": ""
-}
+config_version=5
 
 [application]
 
 config/name="ClickableMap"
 run/main_scene="res://Demo.tscn"
+config/features=PackedStringArray("4.0")
 config/icon="res://icon.png"
 
 [autoload]
@@ -36,4 +21,4 @@ VoronoiHelper="*res://VoronoiHelper.gd"
 
 [rendering]
 
-environment/default_environment="res://default_env.tres"
+environment/defaults/default_environment="res://default_env.tres"
